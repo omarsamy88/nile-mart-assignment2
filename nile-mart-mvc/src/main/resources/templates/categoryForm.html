@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Category</title>
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/categories}">Categories</a>
+    <a th:href="@{/brands}">Brands</a>
+</nav>
+
+<h1>Add New Category</h1>
+
+<form th:action="@{/categories}" th:object="${category}" method="post">
+
+    <div>
+        <label>Category Name:</label>
+        <input type="text" th:field="*{name}">
+        <span th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}"></span>
+    </div>
+
+    <div>
+        <label>Slug:</label>
+        <input type="text" th:field="*{slug}">
+        <span th:if="${#fields.hasErrors('slug')}"
+              th:errors="*{slug}"></span>
+    </div>
+
+    <div>
+        <label>Parent Category:</label>
+        <select th:field="*{parentSlug}">
+            <option value="">None (top level)</option>
+            <option th:each="parent : ${topLevelCategories}"
+                    th:value="${parent.slug}"
+                    th:text="${parent.name}">
+            </option>
+        </select>
+        <span th:if="${#fields.hasErrors('parentSlug')}"
+              th:errors="*{parentSlug}"></span>
+    </div>
+
+    <div>
+        <label>Display Order:</label>
+        <input type="number" min="0" required th:field="*{displayOrder}">
+        <span th:if="${#fields.hasErrors('displayOrder')}"
+              th:errors="*{displayOrder}"></span>
+    </div>
+
+    <div>
+        <label>Active:</label>
+        <input type="checkbox" th:field="*{active}">
+    </div>
+
+    <button type="submit">Save Category</button>
+
+</form>
+
+<a th:href="@{/categories}">Back to Categories</a>
+
+</body>
+</html>

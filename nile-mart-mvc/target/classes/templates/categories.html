@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/categories}">Categories</a>
+    <a th:href="@{/brands}">Brands</a>
+</nav>
+
+<h1>Categories</h1>
+
+<a th:href="@{/categories/new}">Add New Category</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Slug</th>
+        <th>Parent</th>
+        <th>Display Order</th>
+        <th>Active</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="category : ${categories}">
+        <td>
+            <span th:if="${category.parentSlug != null and !category.parentSlug.isEmpty()}">— </span>
+            <span th:text="${category.name}"></span>
+        </td>
+
+        <td th:text="${category.slug}"></td>
+
+        <td th:text="${category.parentSlug == null or category.parentSlug.isEmpty() ? '—' : category.parentSlug}"></td>
+
+        <td th:text="${category.displayOrder}"></td>
+
+        <td th:text="${category.active ? 'Yes' : 'No'}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

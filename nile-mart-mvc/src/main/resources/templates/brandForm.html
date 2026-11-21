@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Brand</title>
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/categories}">Categories</a>
+    <a th:href="@{/brands}">Brands</a>
+</nav>
+
+<h1>Add New Brand</h1>
+
+<form th:action="@{/brands}"
+      th:object="${brand}"
+      method="post">
+
+    <div>
+        <label>Brand Name:</label>
+        <input type="text" th:field="*{name}">
+
+        <span th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}"></span>
+    </div>
+
+    <div>
+        <label>Slug:</label>
+        <input type="text" th:field="*{slug}">
+
+        <span th:if="${#fields.hasErrors('slug')}"
+              th:errors="*{slug}"></span>
+    </div>
+
+    <div>
+        <label>Active:</label>
+        <input type="checkbox" th:field="*{active}">
+    </div>
+
+    <button type="submit">Save Brand</button>
+
+</form>
+
+<a th:href="@{/brands}">Back to Brands</a>
+
+</body>
+</html>
